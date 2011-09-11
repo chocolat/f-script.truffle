@@ -1,0 +1,12 @@
+(name ifTrue:ifFalse)
+
+(trigger
+    (tab itf))
+
+(only-in [source.fscript - string - comment])
+
+(snippet [ifTrue:[
+	%{1}
+] ifFalse:[
+	%{2}
+].])

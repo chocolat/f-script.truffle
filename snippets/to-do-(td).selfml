@@ -1,0 +1,10 @@
+(name to:do:)
+
+(trigger
+    (tab td))
+
+(only-in source.fscript)
+
+(snippet [to:%{1} do:[ %{2=":i"} |
+	%{3}
+].])

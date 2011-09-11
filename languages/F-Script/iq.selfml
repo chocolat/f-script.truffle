@@ -1,0 +1,57 @@
+(detector
+    (extension fscript))
+
+(folding
+    (start `\[`)
+    (stop `\]`))
+
+(in [source.fscript meta.block.header.fscript]
+    (pair [{]
+        [}]
+        (smart-typing))
+    (pair `[`
+        `]`
+        (smart-typing))
+    (pair [(]
+        [)]
+        (smart-typing))
+    (pair |
+        |
+        (smart-typing))
+    (pair "
+        "
+        (smart-typing))
+    (pair '
+        '
+        (smart-typing)))
+
+(pair [{]
+    [}]
+    (smart-typing))
+
+(pair `[`
+    `]`
+    (smart-typing))
+
+(pair [(]
+    [)]
+    (smart-typing))
+
+(pair "
+    "
+    (smart-typing))
+
+(pair '
+    '
+    (smart-typing))
+
+(indentation.decrease `^\s*\][.\s]*$`)
+
+(indentation.increase [^.*\[[^\]']*$])
+
+(shell-variables
+    (TM_COMMENT_START ")
+    (TM_COMMENT_END ")
+    (TM_LINE_TERMINATOR .))
+
+(comment.block " ")

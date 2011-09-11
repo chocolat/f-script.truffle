@@ -1,0 +1,67 @@
+(root source.fscript
+    (zone meta.dummy.symbol.ignore.fscript
+        (match
+            (regex [(:|\w):])))
+    (zone constant.other.symbol.fscript
+        (match
+            (regex [(:)\w+\b]
+                (1 punctuation.definition.symbol.fscript))))
+    (zone constant.numeric.fscript
+        (match
+            (regex [\b((([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)\b])))
+    (zone constant.other.block.compact.fscript
+        (match
+            (regex [#([[:lower:]]|_|[+=\-/!%&*|><~?])(\w|[+=\-/!%&*|><~?:])*])))
+    (zone meta.block.empty.fscript
+        (match
+            (regex [(\[)(?:\s*((?::\w+\s+)*:\w+)\s*\|)?\s*(\])]
+                (3 punctuation.section.block.fscript)
+                (1 punctuation.section.block.fscript)
+                (2 variable.parameter.block.fscript))))
+    (zone meta.block.fscript
+        (start
+            (regex `(\[)(?:\s*((?::\w+\s+)*:\w+)\s*\|)?`
+                (1 punctuation.section.block.fscript)
+                (2 variable.parameter.block.fscript)))
+        (end
+            (regex `\]`
+                (0 punctuation.section.block.fscript)))
+        (subzones
+            (zone meta.block.header.fscript
+                (match
+                    (regex \s+)))
+            (zone meta.block.content.fscript
+                (start
+                    (regex [(?:\|(\s*(?:\w+\s+)*\w+\s*)?\||(?=[^\s|]))]
+                        (1 variable.other.local.fscript)))
+                (end
+                    (regex `(?=\])`
+                        (1 variable.other.local.fscript)))
+                (subzones
+                    (include $base)))))
+    (zone constant.language.fscript
+        (match
+            (list true YES false NO sys nil)
+            (boundary.both)))
+    (zone
+        (match
+            (regex `^(\w+)\s*:=\s*(?=\[)`
+                (1 entity.name.function.fscript))))
+    (zone comment.block.quotes.fscript
+        (start
+            (regex "
+                (0 punctuation.definition.comment.begin.fscript)))
+        (end
+            (regex "
+                (0 punctuation.definition.comment.end.fscript))))
+    (zone string.quoted.single.fscript
+        (start
+            (regex '
+                (0 punctuation.definition.string.begin.fscript)))
+        (end
+            (regex '
+                (0 punctuation.definition.string.end.fscript)))
+        (subzones
+            (zone constant.character.escape.fscript
+                (match
+                    (regex \\.))))))

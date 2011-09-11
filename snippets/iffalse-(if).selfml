@@ -1,0 +1,10 @@
+(name ifFalse:)
+
+(trigger
+    (tab if))
+
+(only-in [source.fscript - string - comment])
+
+(snippet [ifFalse:[
+	%{1}
+].])
